@@ -2,12 +2,11 @@ version: "3"
 
 services:
   # Discord bot
-  discord-bot:
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
-    image: "ghcr.io/dutchdronesquad/dds-bot:latest"
+  discord:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: DDS-Bot-Dev
     environment:
-      TOKEN: ${BOT_TOKEN}
+      TOKEN: ${BOT_DEV_TOKEN}
     restart: unless-stopped

@@ -1,5 +1,7 @@
 # Files
 .env
+production.yml
+docker-compose.yml
 
 # Folders
 .git

@@ -27,6 +27,11 @@ docker run --name DDS-Bot -d -e TOKEN="[YOUR TOKEN]" dds-bot:latest
 
 ## Local Development
 
+It's advisable to test the bot during development in a separate server and use
+a separate token for a production or development. In this project it was
+decided to make a `production.yaml` for production stack deploy and
+`docker-compose.yml` for development.
+
 Follow the steps below to set up the project on your environment.
 
 <details>
@@ -36,6 +41,12 @@ Create a virtual environment with Python 3.9 or higher and install the required 
 
 ```bash
 pip3 install -r requirements.txt
+```
+
+Create an `.env` file and enter your **TOKEN**.
+
+```bash
+cp .env.example .env
 ```
 
 ### Run it
