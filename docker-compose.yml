@@ -3,9 +3,11 @@ version: "3"
 services:
   # Discord bot
   discord-bot:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     image: dds-bot:latest
     container_name: DDS-Bot-Test
+    environment:
+      TOKEN: ${BOT_TOKEN}
     restart: unless-stopped
