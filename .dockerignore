@@ -1,3 +1,9 @@
-.github
+# Files
 .env
+
+# Folders
+.git
+.github
+.dockerignore
+Dockerfile
 venv
