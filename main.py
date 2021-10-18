@@ -77,4 +77,4 @@ async def on_message(message):
     await bot.process_commands(message)
 
 # run the bot using the token in .env
-bot.run(os.getenv('TOKEN'))
+bot.run(os.environ['TOKEN'])

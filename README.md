@@ -1,6 +1,6 @@
 # 🤖 DDS - Discord Bot
 
-This is a Dutch Drone Squad - Discord bot, that can interact with people in a our Server.
+This is a [Dutch Drone Squad][dds] - Discord bot, that can interact with people in a our server.
 
 ## Commands
 
@@ -25,7 +25,7 @@ pip3 install -r requirements.txt
 
 ```bash
 docker build -t dds-bot .
-docker run -d dds-bot
+docker run --name DDS-Bot-Test -d -e TOKEN="[YOUR TOKEN]" dds-bot
 ```
 
 or
@@ -33,3 +33,5 @@ or
 ```bash
 docker-compose up -d
 ```
+
+[dds]: https://dutchdronesquad.nl
