@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  # Discord bot - production
+  discord-bot:
+    image: "ghcr.io/dutchdronesquad/dds-bot:latest"
+    environment:
+      TOKEN: ""
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+      placement:
+        constraints: [node.role == manager]
