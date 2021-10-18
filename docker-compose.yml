@@ -6,8 +6,8 @@ services:
     # build:
     #   context: .
     #   dockerfile: Dockerfile
-    image: dds-bot:latest
-    container_name: DDS-Bot-Test
+    image: "ghcr.io/dutchdronesquad/dds-bot:latest"
+    container_name: DDS-Bot-Dev
     environment:
       TOKEN: ${BOT_TOKEN}
     restart: unless-stopped
