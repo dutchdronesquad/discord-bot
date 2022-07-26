@@ -10,5 +10,5 @@ py-cord==1.7.3
 python-dotenv==0.20.0
 requests==2.26.0
 typing-extensions==3.10.0.2
-urllib3==1.26.7
+urllib3==1.26.11
 yarl==1.7.2
