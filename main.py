@@ -7,24 +7,13 @@ import json
 from discord.ext import commands
 from dotenv import load_dotenv
 
+import modules.quote as quote
+
 # load_dotenv reads from a file called .env in the same directory as the python files which should roughly look like BOT_TOKEN="1234567890"
 load_dotenv()
 
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
-
-# sad_words = ["verdrietig", "boos", "teleurgesteld"]
-# happy_response = [
-#     "Cheer up!",
-#     "Hang in there."
-#     "You are a great person!"
-# ]
-
-def get_quote():
-    response = requests.get("https://zenquotes.io/api/random")
-    json_data = json.loads(response.text)
-    quote = json_data[0]['q'] + " - " + json_data[0]['a']
-    return quote
 
 @bot.event
 async def on_ready():
@@ -33,8 +22,12 @@ async def on_ready():
 
 @bot.command()
 async def inspire(ctx):
-    quote = get_quote()
-    await ctx.reply(quote)
+    """
+    command: !inspire
+    Get a inspiration quote
+    """
+    inspire = quote.get_quote()
+    await ctx.reply(inspire)
 
 @bot.command()
 async def hallo(ctx):
