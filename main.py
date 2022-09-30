@@ -1,8 +1,5 @@
 import discord
-import random
 import os
-import requests
-import json
 
 from discord.ext import commands
 from dotenv import load_dotenv
@@ -32,8 +29,8 @@ async def inspire(ctx):
 @bot.command()
 async def hallo(ctx):
     """
-    ctx - context (information about how the command was executed)
     command: !hallo
+    Say hello to the users
     """
     await ctx.send('Hee hallo! Welkom op de server')
 
@@ -69,5 +66,9 @@ async def on_message(message):
     # Leave this here, otherwise commands wil stop running
     await bot.process_commands(message)
 
-# run the bot using the token in .env
-bot.run(os.environ['TOKEN'])
+# Run the bot
+if __name__ == "__main__":
+    if os.getenv('TESTING') == "true":
+        bot.run(os.getenv('BOT_DEV_TOKEN'))
+    else:
+        bot.run(os.getenv('BOT_TOKEN'))
