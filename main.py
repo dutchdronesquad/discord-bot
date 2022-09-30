@@ -26,16 +26,16 @@ async def inspire(ctx):
     inspire = quote.get_quote()
     await ctx.reply(inspire)
 
-@bot.command()
-async def hallo(ctx):
+@bot.command(name="hallo")
+async def hello(ctx):
     """
     command: !hallo
     Say hello to the users
     """
     await ctx.send('Hee hallo! Welkom op de server')
 
-@bot.command()
-async def vliegavond(ctx):
+@bot.command(name="vliegavond")
+async def trainings(ctx):
     """
     command: !vliegavond
     """
