@@ -10,6 +10,7 @@ import modules.quote as quote
 load_dotenv()
 
 intents = discord.Intents.default()
+intents.message_content = True
 bot = commands.Bot(command_prefix="!", intents=intents)
 
 @bot.event
@@ -49,11 +50,11 @@ async def track(ctx):
     await ctx.send('Informatie over de huidige racetrack kan je vinden op: https://dutchdronesquad.nl/racetrack, of verken de track alvast in Velocidrone.')
 
 @bot.event
-async def on_message(message):
+async def on_message(message: discord.Message):
     username = str(message.author).split('#')[0]
     user_message = str(message.content)
     channel = str(message.channel.name)
-    print(f'{username}: {user_message} ({channel})')
+    print(f'{username} in #{channel}: {user_message}')
 
     if message.author == bot.user:
         return
