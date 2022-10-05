@@ -8,9 +8,14 @@ def main():
     intents = discord.Intents.default()
     intents.message_content = True
     
+    activity = discord.Activity(
+        type=discord.ActivityType.watching, name="de DDS server"
+    )
+    
     bot = commands.Bot(
         command_prefix=commands.when_mentioned_or(config.PREFIX),
         intents=intents,
+        activity=activity,
         owner_id=config.OWNER_ID,
     )
 
