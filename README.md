@@ -16,6 +16,7 @@ The bot responds to the commands below:
 - `!vliegavond` - Gives a link with information about our training days
 - `!track` -  Gives information about the track
 - `!inspire` - Inspiration quote
+- `!version` - Shows the version of the bot (admin only)
 
 ## Local Development
 
