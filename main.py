@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 
 import modules.quote as quote
 
+VERSION = "0.2.0"
+
 # load_dotenv reads from a file called .env in the same directory as the python files which should roughly look like BOT_TOKEN="1234567890"
 load_dotenv()
 
@@ -48,6 +50,15 @@ async def track(ctx):
     command: !track
     """
     await ctx.send('Informatie over de huidige racetrack kan je vinden op: https://dutchdronesquad.nl/racetrack, of verken de track alvast in Velocidrone.')
+
+@bot.command()
+@commands.has_permissions(administrator=True)
+async def version(ctx):
+    """
+    command: !version
+    admin only
+    """
+    await ctx.send(f'Versie: {VERSION}')
 
 @bot.event
 async def on_message(message: discord.Message):
