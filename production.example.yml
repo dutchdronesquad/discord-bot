@@ -5,9 +5,11 @@ services:
   discord-bot:
     image: "ghcr.io/dutchdronesquad/dds-bot:latest"
     environment:
-      TOKEN: ""
+      BOT_TOKEN: ""
+      OWNER_ID: ""
     deploy:
       mode: replicated
       replicas: 1
       restart_policy:
         condition: on-failure
+        delay: 1m
