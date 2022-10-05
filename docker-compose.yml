@@ -8,5 +8,6 @@ services:
       dockerfile: Dockerfile
     container_name: DDS-Bot-Dev
     environment:
-      TOKEN: ${BOT_DEV_TOKEN}
+      BOT_TOKEN: ${BOT_DEV_TOKEN}
+      OWNER_ID: ${OWNER_ID}
     restart: unless-stopped
