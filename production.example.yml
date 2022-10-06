@@ -3,10 +3,10 @@ version: "3"
 services:
   # Discord bot - production
   discord-bot:
+    env_file: .env
     image: "ghcr.io/dutchdronesquad/dds-bot:latest"
     environment:
       BOT_TOKEN: ""
-      OWNER_ID: ""
     deploy:
       mode: replicated
       replicas: 1
