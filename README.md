@@ -8,7 +8,7 @@ Would you like to use the bot on your own server? Then click on the installation
 
 [![Discord][bot-label]][bot-link]
 
-## Commands
+## Features
 
 The bot responds to the commands below:
 
@@ -16,7 +16,11 @@ The bot responds to the commands below:
 - `!vliegavond` - Gives a link with information about our training days
 - `!track` -  Gives information about the track
 - `!inspire` - Inspiration quote
-- `!version` - Shows the version of the bot (admin only)
+
+## Owner Commands
+
+- `!version` - Shows the version of the bot
+- `!roles` - Gives the option to add or remove roles for users
 
 ## Local Development
 
@@ -38,17 +42,15 @@ Create a virtual environment with Python 3.9 or higher and install the required 
 pip3 install -r requirements.txt
 ```
 
-Create an `.env` file and enter your **BOT_DEV_TOKEN**.
+Create an `.env` file and enter the missing details (token and ID's).
 
 ```bash
 cp .env.example .env
 ```
 
-If you set **TESTING** to `true` the development token is used.
-
 ### Run the application
 
-To run it on your development setup, you can either run the python file (main.py), run it as single docker container by building and running the container or by using docker-compose.
+To run it on your development setup, you can either run the python file (main.py), run it as single docker container by building and running the container with docker compose.
 
 #### Python
 
@@ -56,21 +58,6 @@ The simplest is to run the python file directly with:
 
 ```bash
 python3 main.py
-```
-
-#### single docker container
-
-start the docker container and give it your Discord Developers bot token.
-
-```bash
-docker build -t dds-bot-dev .
-docker run --name DDS-Bot-Dev -d -e TOKEN="[YOUR TOKEN]" dds-bot-dev
-```
-or if you use want to test the latest docker image from the Github container registry.
-
-```bash
-docker pull ghcr.io/dutchdronesquad/dds-bot:latest
-docker run --name DDS-Bot -d -e TOKEN="[YOUR TOKEN]" dds-bot:latest
 ```
 
 #### docker-compose
