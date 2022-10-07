@@ -1,5 +1,6 @@
 # Files
 .env
+.env.production
 production.yml
 docker-compose.yml
 

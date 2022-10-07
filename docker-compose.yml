@@ -3,11 +3,11 @@ version: "3"
 services:
   # Discord bot
   discord:
+    env_file: .env
     build:
       context: .
       dockerfile: Dockerfile
     container_name: DDS-Bot-Dev
     environment:
-      BOT_TOKEN: ${BOT_DEV_TOKEN}
-      OWNER_ID: ${OWNER_ID}
+      BOT_TOKEN: ${BOT_TOKEN}
     restart: unless-stopped
