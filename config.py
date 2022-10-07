@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Bot setup
-VERSION = "0.3.0"
+VERSION = "0.4.0"
 PREFIX = "!"
 BOT_NAME = "Dutch Drone Squad"
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
