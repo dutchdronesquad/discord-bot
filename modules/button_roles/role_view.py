@@ -1,3 +1,4 @@
+"""UI View for the role buttons."""
 from utils.utils import custom_id
 import discord
 import config

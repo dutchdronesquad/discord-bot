@@ -1,9 +1,10 @@
+"""Cog for giving and removing roles based on button presses."""
 from discord.ext import commands
 from .role_view import RoleView
 
 
 class ButtonRoles(commands.Cog, name="Button Roles"):
-    """Give and remove roles based on button presses."""
+    """ButtonRoles class for handling button roles."""
 
     def __init__(self, bot: commands.Bot):
         self.bot = bot
