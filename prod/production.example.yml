@@ -5,6 +5,7 @@ services:
   discord-bot:
     env_file: .env.production
     image: "ghcr.io/dutchdronesquad/dds-bot:latest"
+    tty: true
     environment:
       BOT_TOKEN: ""
     deploy:
