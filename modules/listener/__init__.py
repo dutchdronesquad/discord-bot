@@ -1,11 +1,11 @@
-"""Cog for handling Discord events."""
+"""Cog for handling Discord listeners."""
 import discord
 
 from discord.ext import commands
 
 
-class Events(commands.Cog, name="Events"):
-    """Events class for handling Discord events."""
+class Listener(commands.Cog, name="Listener"):
+    """Listener class for handling Discord listeners."""
     def __init__(self, bot: commands.Bot):
         self.bot = bot
 
@@ -15,7 +15,7 @@ class Events(commands.Cog, name="Events"):
         print(f'{self.bot.user.name} has connected to Discord (ID: {self.bot.user.id})')
 
     @commands.Cog.listener()
-    async def on_message(self, message):
+    async def on_message(self, message: discord.Message):
         username = str(message.author).split('#')[0]
         user_message = str(message.content)
         if message.type == discord.MessageType.default:
@@ -30,7 +30,7 @@ class Events(commands.Cog, name="Events"):
         #     await message.reply(random.choice(happy_response))
 
         # Leave this here, otherwise commands wil stop running
-        await self.bot.process_commands(message)
+        # await self.bot.process_commands(message)
 
 def setup(bot: commands.Bot):
-    bot.add_cog(Events(bot))
+    bot.add_cog(Listener(bot))

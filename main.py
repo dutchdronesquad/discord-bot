@@ -21,13 +21,17 @@ def main():
     )
     loaded: list = []
 
+    # List of folders to ignore
+    folders_to_ignore = ['__pycache__']
+
     # Load all modules (cogs)
-    for module in os.listdir('modules'):
-        try:
-            bot.load_extension(f'modules.{module}')
-            loaded.append(module)
-        except Exception as error:
-            print(f'Failed to load module {module}: {error}')
+    for folder in os.listdir('modules'):
+        if folder not in folders_to_ignore:
+            try:
+                bot.load_extension(f'modules.{folder}')
+                loaded.append(folder)
+            except Exception as error:
+                print(f'Failed to load module {folder}: {error}')
 
     # Print all loaded modules
     loaded = ', '.join(loaded)
