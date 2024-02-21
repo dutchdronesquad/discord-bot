@@ -1,4 +1,5 @@
 """Cog for handling system commands."""
+import discord
 from discord.ext import commands
 
 import config
@@ -7,14 +8,14 @@ from .quote import get_quote
 
 
 class System(commands.Cog, name="System"):
-    """System class for handling system commands."""
+    """Specific system commands (mostly for admins)."""
 
     def __init__(self, bot: commands.Bot) -> None:
         """Initialize the System class."""
         self.bot = bot
 
     @commands.command(name="hallo")
-    async def hello(self, ctx: commands.Context) -> None:
+    async def hello(self, ctx: discord.ApplicationContext) -> None:
         """Say hello to the users.
 
         command: !hallo
@@ -23,7 +24,7 @@ class System(commands.Cog, name="System"):
 
     @commands.command(name="version")
     @commands.has_permissions(administrator=True)
-    async def version(self, ctx: commands.Context) -> None:
+    async def version(self, ctx: discord.ApplicationContext) -> None:
         """Get the bot version.
 
         admin: True
@@ -32,7 +33,7 @@ class System(commands.Cog, name="System"):
         await ctx.send(f"Versie: {config.VERSION}")
 
     @commands.command(name="inspire")
-    async def inspire(self, ctx: commands.Context) -> None:
+    async def inspire(self, ctx: discord.ApplicationContext) -> None:
         """Get a inspiration quote.
 
         command: !inspire

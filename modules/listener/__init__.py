@@ -8,13 +8,7 @@ class Listener(commands.Cog, name="Listener"):
     """Listener class for handling Discord listeners."""
 
     def __init__(self, bot: commands.Bot) -> None:
-        """Initialize the Listener class.
-
-        Args:
-        ----
-            bot (commands.Bot): The bot instance.
-
-        """
+        """Initialize the Listener class."""
         self.bot = bot
 
     @commands.Cog.listener()
@@ -50,11 +44,5 @@ class Listener(commands.Cog, name="Listener"):
 
 
 def setup(bot: commands.Bot) -> None:
-    """Add the Listener cog to the bot.
-
-    Args:
-    ----
-        bot (commands.Bot): The bot instance.
-
-    """
+    """Add the Listener cog to the bot."""
     bot.add_cog(Listener(bot))
