@@ -1,12 +1,18 @@
 # Files
-.env
-.env.production
-production.yml
-docker-compose.yml
-
-# Folders
 .git
 .github
 .dockerignore
+
+.env
+.env.dev
+.env.production
+
+production.yml
+docker-compose.yml
 Dockerfile
+
+# Folders
 venv
+prod
+__pycache__
+.ruff_cache
