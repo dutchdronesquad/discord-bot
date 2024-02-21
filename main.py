@@ -1,10 +1,41 @@
 """Main file to start the bot."""
 import os
+from pathlib import Path
 
 import discord
 from discord.ext import commands
 
 import config
+
+
+def load_modules(bot: commands.Bot) -> list[str]:
+    """Load all modules (cogs) and return a list of loaded ones.
+
+    Args:
+    ----
+        bot (commands.Bot): The bot instance.
+
+    Returns:
+    -------
+        list[str]: A list of loaded modules.
+
+    """
+    loaded: list[str] = []
+    ignore_items: list[str] = ["__pycache__", "__init__.py"]
+
+    for item in os.listdir("modules"):
+        full_path = Path("modules") / item
+        if item not in ignore_items and (
+            full_path.is_dir() or (full_path.is_file() and item.endswith(".py"))
+        ):
+            try:
+                module_name = item[:-3] if item.endswith(".py") else item
+                bot.load_extension(f"modules.{module_name}")
+                loaded.append(module_name)
+            except Exception as error:  # noqa: BLE001
+                print(f"Failed to load module {module_name}: {error}")
+
+    return loaded
 
 
 def main() -> None:
@@ -23,23 +54,10 @@ def main() -> None:
         activity=activity,
         owner_id=config.OWNER_ID,
     )
-    loaded: list = []
 
-    # List of folders to ignore
-    folders_to_ignore = ["__pycache__"]
-
-    # Load all modules (cogs)
-    for folder in os.listdir("modules"):
-        if folder not in folders_to_ignore:
-            try:
-                bot.load_extension(f"modules.{folder}")
-                loaded.append(folder)
-            except Exception as error:  # noqa: BLE001
-                print(f"Failed to load module {folder}: {error}")
-
-    # Print all loaded modules
-    loaded_str: str = ", ".join(loaded)
-    print(f"Successfully loaded modules (cogs): {loaded_str}")
+    # Load modules (cogs)
+    loaded_modules = load_modules(bot)
+    print(f"Successfully loaded modules (cogs): {', '.join(loaded_modules)}")
 
     # Run the bot
     bot.run(config.BOT_TOKEN)
