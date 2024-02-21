@@ -1,3 +1,4 @@
+---
 name: Build and publish Docker image
 
 on:
@@ -11,12 +12,11 @@ env:
 
 jobs:
   publish-to-registry:
-    name: 🚀 Publish to registry
+    name: 🚀 Publish to Github registry
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4.1.1

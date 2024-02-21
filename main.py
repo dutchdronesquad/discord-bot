@@ -38,8 +38,8 @@ def main() -> None:
                 print(f"Failed to load module {folder}: {error}")
 
     # Print all loaded modules
-    loaded = ", ".join(loaded)
-    print(f"Successfully loaded modules (cogs): {loaded}")
+    loaded_str: str = ", ".join(loaded)
+    print(f"Successfully loaded modules (cogs): {loaded_str}")
 
     # Run the bot
     bot.run(config.BOT_TOKEN)
