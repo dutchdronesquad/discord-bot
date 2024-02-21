@@ -1,10 +1,14 @@
-import discord
+"""Main file to start the bot."""
 import os
-import config
 
+import discord
 from discord.ext import commands
 
-def main():
+import config
+
+
+def main() -> None:
+    """First function to run when starting the bot."""
     intents = discord.Intents.default()
     intents.guilds = True
     intents.message_content = True
@@ -22,23 +26,24 @@ def main():
     loaded: list = []
 
     # List of folders to ignore
-    folders_to_ignore = ['__pycache__']
+    folders_to_ignore = ["__pycache__"]
 
     # Load all modules (cogs)
-    for folder in os.listdir('modules'):
+    for folder in os.listdir("modules"):
         if folder not in folders_to_ignore:
             try:
-                bot.load_extension(f'modules.{folder}')
+                bot.load_extension(f"modules.{folder}")
                 loaded.append(folder)
-            except Exception as error:
-                print(f'Failed to load module {folder}: {error}')
+            except Exception as error:  # noqa: BLE001
+                print(f"Failed to load module {folder}: {error}")
 
     # Print all loaded modules
-    loaded = ', '.join(loaded)
-    print(f'Successfully loaded modules (cogs): {loaded}')
+    loaded = ", ".join(loaded)
+    print(f"Successfully loaded modules (cogs): {loaded}")
 
     # Run the bot
     bot.run(config.BOT_TOKEN)
+
 
 # Run main() to start the bot
 if __name__ == "__main__":
