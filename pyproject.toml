@@ -17,7 +17,7 @@ python-dotenv = "^1.0.1"
 requests = "^2.31.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "^0.2.2"
+ruff = "0.2.2"
 
 [tool.pylint.BASIC]
 good-names = ["_", "ex", "fp", "i", "id", "j", "k", "on", "Run", "T"]
