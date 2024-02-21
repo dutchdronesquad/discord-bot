@@ -1,14 +1,13 @@
-FROM python:3.10-slim
+FROM python:3.11-slim
 LABEL Maintainer="Klaas Schoute"
 
+COPY . /usr/src/bot
 WORKDIR /usr/src/bot
 
-# copy and install requirements
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Copy project
-COPY . .
+# Install poetry and dependencies
+RUN pip install poetry
+RUN poetry config virtualenvs.create false
+RUN poetry install --without dev
 
 ENTRYPOINT ["python"]
 CMD ["main.py"]
