@@ -1,8 +1,11 @@
+"""Configuration load and setup for the bot."""
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
 
-BASEDIR = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(BASEDIR, '.env'))
+BASEDIR = Path(Path(__file__).parent).resolve()
+load_dotenv(BASEDIR / ".env")
 
 # Bot setup
 VERSION = "0.4.0"

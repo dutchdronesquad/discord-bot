@@ -121,10 +121,17 @@ venv.bak/
 .dmypy.json
 dmypy.json
 
+# Visual Studio Code
+.vscode
+
+# ruff
+.ruff_cache
+
 # Pyre type checker
 .pyre/
 
 setup.py
+.python-version
 
 # Files
 production.yml
