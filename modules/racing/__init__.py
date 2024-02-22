@@ -1,5 +1,6 @@
 """Cog for handling racing commands."""
 import discord
+from discord.commands import SlashCommandGroup
 from discord.ext import commands
 
 
@@ -10,8 +11,16 @@ class Racing(commands.Cog, name="Racing"):
         """Initialize the Racing class."""
         self.bot = bot
 
-    @commands.command(name="training")
-    async def trainings(self, ctx: discord.ApplicationContext) -> None:
+    racing = SlashCommandGroup(
+        name="race",
+        description="Commands specific about drone racing.",
+    )
+
+    @racing.command(
+        name="training",
+        description="Get the URL to the upcoming flying dates.",
+    )
+    async def training(self, ctx: discord.ApplicationContext) -> None:
         """Know where to find the upcoming flying dates.
 
         command: !training
@@ -22,9 +31,12 @@ class Racing(commands.Cog, name="Racing"):
 
         """
         msg: str = "Een lijst met aankomende vliegdata is te vinden op: https://dutchdronesquad.nl/trainingen. Daar vind je ook instructies over hoe je je kunt aanmelden voor een vliegavond."  # noqa: E501
-        await ctx.send(msg)
+        await ctx.respond(msg)
 
-    @commands.command(name="track")
+    @racing.command(
+        name="track",
+        description="Get URL for information about the current racetrack.",
+    )
     async def track(self, ctx: discord.ApplicationContext) -> None:
         """Know where to find the current racetrack.
 
@@ -36,7 +48,7 @@ class Racing(commands.Cog, name="Racing"):
 
         """
         msg: str = "Informatie over de huidige racetrack is te vinden op: https://dutchdronesquad.nl/racetrack. Je kunt ook de track alvast verkennen in Velocidrone."  # noqa: E501
-        await ctx.send(msg)
+        await ctx.respond(msg)
 
 
 def setup(bot: commands.Bot) -> None:
