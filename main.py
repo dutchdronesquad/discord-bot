@@ -53,7 +53,10 @@ def main() -> None:
         intents=intents,
         activity=activity,
         owner_id=config.OWNER_ID,
+        # debug_guilds=[config.GUILD_ID],  # noqa: ERA001
     )
+
+    print("--- Bot is starting up... ---")
 
     # Load modules (cogs)
     loaded_modules = load_modules(bot)

@@ -14,8 +14,15 @@ class Listener(commands.Cog, name="Listener"):
     @commands.Cog.listener()
     async def on_ready(self) -> None:
         """When the bot is ready to interact."""
-        print("--- Bot is online and ready to interact! ---")
         print(f"{self.bot.user.name} has connected to Discord (ID: {self.bot.user.id})")
+        print()
+
+        print("Connected to the following servers:")
+        for guild in self.bot.guilds:
+            print(f" - {guild.name} (ID: {guild.id})")
+
+        print()
+        print("--- Bot is online and ready to interact! ---")
 
     @commands.Cog.listener()
     async def on_message(self, message: discord.Message) -> None:
