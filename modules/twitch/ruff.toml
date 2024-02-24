@@ -1,0 +1,6 @@
+# This extend our general Ruff rules for cogs
+extend = "../../pyproject.toml"
+
+lint.extend-ignore = [
+  "ERA001", # Allow code that is commented-out...
+]

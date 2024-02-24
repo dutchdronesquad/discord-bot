@@ -1,0 +1,149 @@
+"""Cog to integrate with Twitch."""
+import config
+import discord
+from discord.ext import commands, tasks
+from twitchAPI.twitch import Twitch as TwitchAPI
+from twitchAPI.type import TwitchAuthorizationException
+
+
+class TwitchCog(commands.Cog, name="Twitch"):
+    """Class to integrate with Twitch."""
+
+    def __init__(self, bot: commands.Bot) -> None:
+        """Initialize the Twitch class."""
+        self.bot = bot
+        self.client_id = config.TWITCH_CLIENT_ID
+        self.client_secret = config.TWITCH_CLIENT_SECRET
+        self.twitch = TwitchAPI(self.client_id, self.client_secret)
+
+        # List of Twitch channels to monitor
+        self.channels = [
+            "dutchdronesquad",
+        ]
+        self.notify_channel = config.TWITCH_CHANNEL_ID
+
+        # Dictionary to store the live status and start time of each channel
+        self.live_status = {
+            channel: {"live": False, "start_time": None} for channel in self.channels
+        }
+
+    def cog_unload(self) -> None:
+        """Cancel the background task."""
+        self.stream_check.cancel()
+
+    @commands.Cog.listener()
+    async def on_ready(self) -> None:
+        """Authenticate the Twitch API."""
+        try:
+            await self.twitch.authenticate_app([])
+        except TwitchAuthorizationException:
+            print("Failed to authenticate with Twitch.")
+        else:
+            print("Authenticated with Twitch.")
+            # Initialize the live status of the channels
+            await self.init_live_status()
+            # Start the background task
+            self.stream_check.start()
+
+    async def init_live_status(self) -> None:
+        """Initialize the live status of the channels.
+
+        Without this function, the bot will notify the server every time it starts
+        """
+        print("Initializing live status of Twitch streamers...")
+        for channel in self.channels:
+            async for stream_info in self.twitch.get_streams(user_login=channel):
+                if stream_info.type == "live":
+                    self.live_status[channel] = {
+                        "live": True,
+                        "start_time": stream_info.started_at,
+                    }
+                    break
+        # print(self.live_status)
+
+    @tasks.loop(minutes=5)
+    async def stream_check(self) -> None:
+        """Check if a Twitch user is live and notify in Discord."""
+        for channel in self.channels:
+            stream_found = False
+            async for stream_info in self.twitch.get_streams(user_login=channel):
+                stream_found = True
+                if stream_info.type == "live" and not self.live_status[channel]["live"]:
+                    self.live_status[channel] = {
+                        "live": True,
+                        "start_time": stream_info.started_at,
+                    }
+                    await self.notify_live(stream_info)
+            if not stream_found and self.live_status[channel]["live"]:
+                self.live_status[channel] = {"live": False, "start_time": None}
+        # print(self.live_status)
+
+    async def get_user_info(self, user_id: str) -> dict:
+        """Get the user info of a Twitch user.
+
+        Args:
+        ----
+            user_id (str): The user ID of the Twitch user.
+
+        Returns:
+        -------
+            dict: The user info of the Twitch user.
+
+        """
+        async for user in self.twitch.get_users(user_ids=user_id):
+            # print(user.__dict__)
+            return user
+        return {}
+
+    async def notify_live(self, stream_info: dict) -> None:
+        """Notify the server that a channel is live.
+
+        Args:
+        ----
+            stream_info (dict): The information of the live stream.
+
+        """
+        # print(stream_info.__dict__)
+        user_info = await self.get_user_info(stream_info.user_id)
+        embed = self.create_embed(stream_info, user_info)
+
+        channel = self.bot.get_channel(self.notify_channel)
+        message = (
+            f"Hey @everyone, {stream_info.user_name} is nu live op "
+            f"https://twitch.tv/{stream_info.user_login}! Kom je ook kijken?"
+        )
+        await channel.send(message, embed=embed)
+
+    def create_embed(self, stream_info: dict, user_info: dict) -> discord.Embed:
+        """Create an embed for the live stream.
+
+        Args:
+        ----
+            stream_info (dict): The information of the live stream.
+            user_info (dict): The information of the Twitch user.
+
+        Returns:
+        -------
+            discord.Embed: The embed for the live stream.
+
+        """
+        embed = discord.Embed(
+            title=stream_info.title,
+            url=f"https://twitch.tv/{stream_info.user_login}",
+            description=user_info.description,
+            color=discord.Colour.blurple(),
+            timestamp=stream_info.started_at,
+        )
+        embed.add_field(name="Game", value=stream_info.game_name, inline=True)
+        embed.add_field(name="Viewers", value=stream_info.viewer_count, inline=True)
+        embed.set_image(url=stream_info.thumbnail_url.format(width=1920, height=1080))
+        embed.set_footer(
+            text="Twitch",
+            icon_url="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Twitch_Glitch_Logo_Purple.svg/206px-Twitch_Glitch_Logo_Purple.svg.png",
+        )
+        return embed
+
+
+def setup(bot: commands.Bot) -> None:
+    """Add the Twitch cog to the bot."""
+    bot.add_cog(TwitchCog(bot))
