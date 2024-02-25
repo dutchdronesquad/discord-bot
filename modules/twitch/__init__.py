@@ -68,11 +68,11 @@ class TwitchCog(commands.Cog, name="Twitch"):
         # print(self.live_status)
 
     @twitch.command(
-        name="streamers_list",
+        name="streamers_monitor_list",
         description="Get the list of Twitch streamers to monitor.",
     )
     @commands.has_permissions(administrator=True)
-    async def get_streamers_list(self, ctx: discord.ApplicationContext) -> None:
+    async def get_streamers_monitor_list(self, ctx: discord.ApplicationContext) -> None:
         """Get the list of Twitch streamers to monitor.
 
         Args:
