@@ -4,7 +4,7 @@ import discord
 from discord.commands import SlashCommandGroup
 from discord.ext import commands, tasks
 from twitchAPI.twitch import Twitch as TwitchAPI
-from twitchAPI.type import TwitchAuthorizationException
+from twitchAPI.type import TwitchAPIException, TwitchAuthorizationException
 
 
 class TwitchCog(commands.Cog, name="Twitch"):
@@ -68,6 +68,32 @@ class TwitchCog(commands.Cog, name="Twitch"):
             if not stream_found and self.live_status[channel]["live"]:
                 self.live_status[channel] = {"live": False, "start_time": None}
         # print(self.live_status)
+
+    @twitch.command(name="shoutout", description="Shoutout a Twitch user in the chat.")
+    @discord.commands.option(name="username", description="The Twitch user to shoutout")
+    async def twitch_shoutout(
+        self,
+        ctx: discord.ApplicationContext,
+        username: str,
+    ) -> None:
+        """Shoutout a Twitch user in the chat.
+
+        Args:
+        ----
+            ctx: The context in which the command was sent.
+            user (str): The Twitch user to shoutout.
+
+        """
+        user_info = await self.get_user_info(login_name=username)
+        if user_info:
+            message = (
+                f"📢 Ga naar https://twitch.tv/{user_info.login} "
+                f"en volg {user_info.display_name}! 📢"
+            )
+            await ctx.respond(message)
+        else:
+            message = f"Geen Twitch gebruiker gevonden met de naam {username}."
+            await ctx.respond(message, ephemeral=True)
 
     @twitch.command(
         name="streamers_monitor_list",
