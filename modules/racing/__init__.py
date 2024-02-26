@@ -50,6 +50,23 @@ class Racing(commands.Cog, name="Racing"):
         msg: str = "Informatie over de huidige racetrack is te vinden op: https://dutchdronesquad.nl/racetrack. Je kunt ook de track alvast verkennen in Velocidrone."  # noqa: E501
         await ctx.respond(msg)
 
+    @racing.command(
+        name="results",
+        description="Get URL for information where to find the timing results.",
+    )
+    async def results(self, ctx: discord.ApplicationContext) -> None:
+        """Know where to find the timing results.
+
+        command: !results
+
+        Args:
+        ----
+            ctx: The context in which the command was sent.
+
+        """
+        msg: str = "De resultaten van de tijdwaarneming tijdens een vliegavond zijn beschikbaar op: https://fpvscores.com/organisation/dds."  # noqa: E501
+        await ctx.respond(msg)
+
 
 def setup(bot: commands.Bot) -> None:
     """Add the Racing cog to the bot."""
