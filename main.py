@@ -43,6 +43,7 @@ def main() -> None:
     intents = discord.Intents.default()
     intents.guilds = True
     intents.message_content = True
+    intents.members = True
 
     activity = discord.Activity(
         type=discord.ActivityType.watching, name="de DDS server"
@@ -54,6 +55,7 @@ def main() -> None:
         activity=activity,
         owner_id=config.OWNER_ID,
         # debug_guilds=[config.GUILD_ID],  # noqa: ERA001
+        sync_slash_commands=True,
     )
 
     print("--- Bot is starting up... ---")
