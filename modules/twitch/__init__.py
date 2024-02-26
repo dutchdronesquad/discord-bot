@@ -122,22 +122,33 @@ class TwitchCog(commands.Cog, name="Twitch"):
         )
         await ctx.respond(embed=embed)
 
-    async def get_user_info(self, user_id: str) -> dict:
+    async def get_user_info(
+        self,
+        user_id: str | None = None,
+        login_name: str | None = None,
+    ) -> dict | None:
         """Get the user info of a Twitch user.
 
         Args:
         ----
             user_id (str): The user ID of the Twitch user.
+            login_name (str): The login name of the Twitch user.
 
         Returns:
         -------
             dict: The user info of the Twitch user.
 
         """
-        async for user in self.twitch_api.get_users(user_ids=user_id):
-            # print(user.__dict__)
-            return user
-        return {}
+        try:
+            async for user in self.twitch_api.get_users(
+                user_ids=user_id, logins=login_name
+            ):
+                # print(user.__dict__)
+                return user
+        except TwitchAPIException as error:
+            print(f"Failed to get user info: {error}")
+        else:
+            return None
 
     async def notify_live(self, stream_info: dict) -> None:
         """Notify the server that a channel is live.
@@ -148,7 +159,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
 
         """
         # print(stream_info.__dict__)
-        user_info = await self.get_user_info(stream_info.user_id)
+        user_info = await self.get_user_info(user_id=stream_info.user_id)
         embed = self.create_embed(stream_info, user_info)
 
         channel = self.bot.get_channel(self.notify_channel)
