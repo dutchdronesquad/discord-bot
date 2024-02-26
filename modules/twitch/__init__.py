@@ -55,7 +55,9 @@ class TwitchCog(commands.Cog, name="Twitch"):
         """Check if a Twitch user is live and notify in Discord."""
         for channel in self.channels:
             stream_found = False
-            async for stream_info in self.twitch_api.get_streams(user_login=channel):
+            async for stream_info in self.twitch_api.get_streams(
+                user_login=channel, stream_type="live"
+            ):
                 stream_found = True
                 if stream_info.type == "live" and not self.live_status[channel]["live"]:
                     self.live_status[channel] = {
@@ -88,7 +90,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
             else:
                 streamers_info += f"🔴 **{channel}**: Offline\n"
         embed = discord.Embed(
-            title="Twitch Streamers List",
+            title="Twitch Streamers Monitor List",
             description=streamers_info,
             color=discord.Colour.blurple(),
         )
@@ -166,7 +168,9 @@ class TwitchCog(commands.Cog, name="Twitch"):
         """
         print("Initializing live status of Twitch streamers...")
         for channel in self.channels:
-            async for stream_info in self.twitch_api.get_streams(user_login=channel):
+            async for stream_info in self.twitch_api.get_streams(
+                user_login=channel, stream_type="live"
+            ):
                 if stream_info.type == "live":
                     self.live_status[channel] = {
                         "live": True,
