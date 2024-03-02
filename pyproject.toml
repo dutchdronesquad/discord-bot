@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 package-mode = false
 packages = [
-    { include = "modules" }
+  { include = "modules" }
 ]
 
 [tool.poetry.dependencies]
