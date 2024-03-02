@@ -1,4 +1,5 @@
 """UI View for the role buttons."""
+
 # ruff: noqa: ERA001
 import discord
 
