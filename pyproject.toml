@@ -15,7 +15,7 @@ py-cord = "^2.4.1"
 python = "^3.11"
 python-dotenv = "^1.0.1"
 requests = "^2.31.0"
-twitchapi = "<=4.2.0"
+twitchapi = "^4.2.0"
 
 [tool.poetry.group.dev.dependencies]
 ruff = "0.3.0"
