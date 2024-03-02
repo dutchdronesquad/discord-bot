@@ -1,13 +1,13 @@
 [tool.poetry]
 name = "discord-bot"
-version = "0.1.0"
 description = "A discord bot for the server of Dutch Drone Squad"
 authors = ["Dutch Drone Squad <info@dutchdronesquad.nl>"]
 maintainers = ["Klaas Schoute <hello@student-techlife.com>"]
 license = "MIT"
 readme = "README.md"
+package-mode = false
 packages = [
-    { include = "modules" }
+  { include = "modules" }
 ]
 
 [tool.poetry.dependencies]

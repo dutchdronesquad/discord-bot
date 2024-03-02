@@ -1,5 +1,4 @@
 """Cog for handling Discord listeners."""
-# ruff: noqa: ERA001
 import discord
 from discord.ext import commands
 
@@ -33,13 +32,13 @@ class Listener(commands.Cog, name="Listener"):
             message (discord.Message): The message that was sent.
 
         """
-        username = str(message.author).split("#")[0]
-        user_message = str(message.content)
-        if message.type == discord.MessageType.default:
-            print(f"{username} in #{message.channel}: {user_message}")
+        # username = str(message.author).split("#")[0]
+        # user_message = str(message.content)
+        # if message.type == discord.MessageType.default:
+        #     print(f"{username} in #{message.channel}: {user_message}")
 
-        if message.author == self.bot.user:
-            return
+        # if message.author == self.bot.user:
+        #     return
 
         # msg = message.content
 
