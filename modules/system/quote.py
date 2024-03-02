@@ -1,4 +1,5 @@
 """Module to get a random quote from zenquotes.io."""
+
 import json
 
 import requests

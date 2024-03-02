@@ -1,4 +1,5 @@
 """Cog to integrate with Twitch."""
+
 import config
 import discord
 from discord.commands import SlashCommandGroup

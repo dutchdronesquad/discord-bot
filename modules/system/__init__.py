@@ -1,4 +1,5 @@
 """Cog for handling system commands."""
+
 import discord
 from discord.ext import commands
 

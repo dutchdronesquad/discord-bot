@@ -1,4 +1,5 @@
 """Configuration load and setup for the bot."""
+
 import os
 from pathlib import Path
 

@@ -1,4 +1,5 @@
 """Main file to start the bot."""
+
 import os
 from pathlib import Path
 

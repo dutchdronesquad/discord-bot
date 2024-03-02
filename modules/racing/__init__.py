@@ -1,4 +1,5 @@
 """Cog for handling racing commands."""
+
 import discord
 from discord.commands import SlashCommandGroup
 from discord.ext import commands
