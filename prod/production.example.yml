@@ -4,7 +4,7 @@ services:
   # Discord bot - production
   discord-bot:
     env_file: .env.production
-    image: "ghcr.io/dutchdronesquad/dds-bot:latest"
+    image: "ghcr.io/dutchdronesquad/discord-bot:latest"
     tty: true
     environment:
       BOT_TOKEN: ""
