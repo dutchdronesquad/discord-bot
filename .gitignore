@@ -135,3 +135,4 @@ setup.py
 
 # Files
 production.yml
+secrets.txt
