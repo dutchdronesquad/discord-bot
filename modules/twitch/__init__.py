@@ -47,7 +47,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
         except TwitchAuthorizationException:
             print("Failed to authenticate with Twitch.")
         else:
-            print("Authenticated with Twitch.")
+            print("INFO: Authenticated with Twitch.")
             # Initialize the live status of the channels
             await self.init_live_status()
             # Start the background task
@@ -207,7 +207,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
 
         Without this function, the bot will notify the server every time it starts
         """
-        print("Initializing live status of Twitch streamers...")
+        print("INFO: Initializing live status of Twitch streamers...")
         for channel in self.channels:
             async for stream_info in self.twitch_api.get_streams(
                 user_login=channel, stream_type="live"
@@ -219,6 +219,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
                     }
                     break
         # print(self.live_status)
+        print("INFO: Live status of Twitch streamers initialized.")
 
 
 def setup(bot: commands.Bot) -> None:
