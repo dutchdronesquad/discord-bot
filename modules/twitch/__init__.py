@@ -2,6 +2,7 @@
 
 import config
 import discord
+import pytz
 from discord.commands import SlashCommandGroup
 from discord.ext import commands, tasks
 from twitchAPI.twitch import Twitch as TwitchAPI
@@ -14,6 +15,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
     def __init__(self, bot: commands.Bot) -> None:
         """Initialize the Twitch class."""
         self.bot = bot
+        self.timezone = config.TIMEZONE
         self.client_id = config.TWITCH_CLIENT_ID
         self.client_secret = config.TWITCH_CLIENT_SECRET
         self.twitch_api = TwitchAPI(self.client_id, self.client_secret)
@@ -112,8 +114,9 @@ class TwitchCog(commands.Cog, name="Twitch"):
         streamers_info = ""
         for channel, status in self.live_status.items():
             if status["live"]:
-                start_time = status["start_time"].strftime("%Y-%m-%d %H:%M:%S")
-                streamers_info += f"🟢 **{channel}**: Live since {start_time}\n"
+                local_tz = pytz.timezone(self.timezone)
+                start_time = status["start_time"].astimezone(local_tz)
+                streamers_info += f"🟢 **{channel}**: Live since {start_time.strftime('%Y-%m-%d %H:%M')}\n"
             else:
                 streamers_info += f"🔴 **{channel}**: Offline\n"
         embed = discord.Embed(
