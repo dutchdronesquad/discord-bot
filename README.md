@@ -94,6 +94,13 @@ Use docker compose to build and run the container:
 ```bash
 docker-compose up -d --build
 ```
+
+Run in production mode:
+
+```bash
+docker compose -f prod/production.yml up -d
+```
+
 </details>
 
 <!-- Links -->
