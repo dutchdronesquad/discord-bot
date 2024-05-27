@@ -115,8 +115,10 @@ class TwitchCog(commands.Cog, name="Twitch"):
         for channel, status in self.live_status.items():
             if status["live"]:
                 local_tz = pytz.timezone(self.timezone)
-                start_time = status["start_time"].astimezone(local_tz)
-                streamers_info += f"🟢 **{channel}**: Live since {start_time.strftime('%Y-%m-%d %H:%M')}\n"
+                start_time = (
+                    status["start_time"].astimezone(local_tz).strftime("%Y-%m-%d %H:%M")
+                )
+                streamers_info += f"🟢 **{channel}**: Live since {start_time}\n"
             else:
                 streamers_info += f"🔴 **{channel}**: Offline\n"
         embed = discord.Embed(
