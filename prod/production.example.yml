@@ -1,5 +1,5 @@
-version: "3"
-
+---
+name: dds-discord
 services:
   # Discord bot - production
   discord-bot:
@@ -8,6 +8,7 @@ services:
     tty: true
     environment:
       BOT_TOKEN: ""
+      TWITCH_CHANNEL_ID: ""
     deploy:
       mode: replicated
       replicas: 1
