@@ -2,6 +2,7 @@
 .git
 .github
 .dockerignore
+.python-version
 
 .env
 .env.dev
