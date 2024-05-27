@@ -8,6 +8,8 @@ from dotenv import load_dotenv
 BASEDIR = Path(Path(__file__).parent).resolve()
 load_dotenv(BASEDIR / ".env")
 
+TIMEZONE = "Europe/Amsterdam"
+
 # Bot setup
 VERSION = "0.4.0"
 PREFIX = "!"

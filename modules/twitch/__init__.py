@@ -2,6 +2,7 @@
 
 import config
 import discord
+import pytz
 from discord.commands import SlashCommandGroup
 from discord.ext import commands, tasks
 from twitchAPI.twitch import Twitch as TwitchAPI
@@ -14,6 +15,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
     def __init__(self, bot: commands.Bot) -> None:
         """Initialize the Twitch class."""
         self.bot = bot
+        self.timezone = config.TIMEZONE
         self.client_id = config.TWITCH_CLIENT_ID
         self.client_secret = config.TWITCH_CLIENT_SECRET
         self.twitch_api = TwitchAPI(self.client_id, self.client_secret)
@@ -45,7 +47,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
         except TwitchAuthorizationException:
             print("Failed to authenticate with Twitch.")
         else:
-            print("Authenticated with Twitch.")
+            print("INFO: Authenticated with Twitch.")
             # Initialize the live status of the channels
             await self.init_live_status()
             # Start the background task
@@ -112,7 +114,10 @@ class TwitchCog(commands.Cog, name="Twitch"):
         streamers_info = ""
         for channel, status in self.live_status.items():
             if status["live"]:
-                start_time = status["start_time"].strftime("%Y-%m-%d %H:%M:%S")
+                local_tz = pytz.timezone(self.timezone)
+                start_time = (
+                    status["start_time"].astimezone(local_tz).strftime("%Y-%m-%d %H:%M")
+                )
                 streamers_info += f"🟢 **{channel}**: Live since {start_time}\n"
             else:
                 streamers_info += f"🔴 **{channel}**: Offline\n"
@@ -204,7 +209,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
 
         Without this function, the bot will notify the server every time it starts
         """
-        print("Initializing live status of Twitch streamers...")
+        print("INFO: Initializing live status of Twitch streamers...")
         for channel in self.channels:
             async for stream_info in self.twitch_api.get_streams(
                 user_login=channel, stream_type="live"
@@ -216,6 +221,7 @@ class TwitchCog(commands.Cog, name="Twitch"):
                     }
                     break
         # print(self.live_status)
+        print("INFO: Live status of Twitch streamers initialized.")
 
 
 def setup(bot: commands.Bot) -> None:
