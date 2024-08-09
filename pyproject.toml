@@ -18,7 +18,7 @@ requests = "^2.31.0"
 twitchapi = "^4.2.0"
 
 [tool.poetry.group.dev.dependencies]
-ruff = "0.5.6"
+ruff = "0.5.7"
 
 [tool.pylint.BASIC]
 good-names = ["_", "ex", "fp", "i", "id", "j", "k", "on", "Run", "T"]
